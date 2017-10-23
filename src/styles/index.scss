@@ -5,3 +5,19 @@ html, body, #react, .app {
   padding: 0;
   border: 0;
 }
+
+.app {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.dock {
+  display: flex;
+  align-items: flex-end;
+
+  .dock-app {
+    flex: 1;
+    padding: 5px;
+  }
+}
