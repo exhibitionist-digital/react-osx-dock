@@ -6,7 +6,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="app">
-        <Dock />
+        <Dock apps={Array.from({ length: 16 })} />
       </div>
     );
   }
