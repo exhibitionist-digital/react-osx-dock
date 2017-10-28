@@ -1,72 +1,125 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-const defaultProps = {
-  backgroundColor: "#ccc",
-  width: "700px",
-};
-
 export default class extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      index: null,
-      x: null,
-    };
+    this.state = { magnifierX: null, };
   }
 
   render() {
-    const { backgroundColor, width, apps } = Object.assign({}, defaultProps, this.props);
+    let appWidths = this.state.magnifierX === null ? this.unmagnifiedDockAppWidths : this.magnifiedDockAppWidths;
+
+    let offsetLeft = do {
+      if (this.state.magnifierX === null) this.unmagnifiedDockOffset / 2;
+      else if (this.state.magnifierX < this.unmagnifiedDockWidth / 2) this.magnifiedDockOffset;
+      else 0;
+    };
+
+    let offsetRight = do {
+      if (this.state.magnifierX === null) this.unmagnifiedDockOffset / 2;
+      else if (this.state.magnifierX > this.unmagnifiedDockWidth / 2) this.magnifiedDockOffset;
+      else 0;
+    };
 
     return (
       <div
-        className="dock"
-        style={{ backgroundColor, width, }}
-        onMouseEnter={::this.onMouseEnter}
+        className={this.props.className}
         onMouseMove={::this.onMouseMove}
         onMouseLeave={::this.onMouseLeave}
+        style={{
+          display: "grid",
+          gridTemplateColumns: [offsetLeft, ...appWidths, offsetRight].map(colWidth => `${colWidth}px`).join(" "),
+          alignItems: "end",
+          // gridColumnGap: "10px",
+        }}
       >
-        {apps.map((app, index) => this.renderDockApp(index))}
+        {/* offsetLeft */}
+        <div style={{ background: "red", height: "100%" }}>
+        </div>
+
+        {this.props.apps.map((app, index) => (
+          <div key={index} style={{ display: "flex", flexDirection: "column" }}>
+            <svg viewBox="0 0 1 1">
+              <circle cx="0.5" cy="0.5" r="0.5" />
+            </svg>
+          </div>
+        ))}
+
+        {/* offsetRight */}
+        <div style={{ background: "red", height: "100%" }}>
+        </div>
       </div>
     );
-  }
-
-  renderDockApp(index) {
-    let appWidth = 1 / this.props.apps.length;
-    let hotZoneWidth = appWidth * 3;
-    let maxExtraFlex = 1;
-    let appX = (index * appWidth) + (appWidth / 2);
-    let distance = Math.abs(this.state.x - appX);
-    let magnification = 1 - (distance / hotZoneWidth);
-    let flex = `${1 + (this.state.x !== null && distance <= hotZoneWidth ? magnification * maxExtraFlex : 0)}`;
-
-    return (
-      <div
-        key={index}
-        className="dock-app"
-        style={{ flex }}
-      >
-        <svg viewBox="0 0 100 100">
-          <circle cx="50" cy="50" r="50" />
-        </svg>
-      </div>
-    );
-  }
-
-  onMouseEnter(event) {
-    // let x = event.pageX - element.offsetLeft;
-    // this.setState({ index });
   }
 
   onMouseMove(event) {
     let element = ReactDOM.findDOMNode(this);
-    let x = (event.pageX - element.offsetLeft) / element.clientWidth;
-    this.setState({ x });
+    let magnifierX = event.pageX - element.offsetLeft - (this.unmagnifiedDockOffset / 2);
+
+    // If the mouse isn't over the dock, don't bother recording its coordinates.
+    if (magnifierX < 0 || magnifierX > this.unmagnifiedDockWidth) {
+      magnifierX = null;
+    }
+
+    this.setState({ magnifierX });
   }
 
   onMouseLeave(event) {
-    let x = null;
-    this.setState({ x });
+    this.setState({ magnifierX: null });
+  }
+
+  computeDockAppWidths(magnifierX = null) {
+    return this.props.apps.map((app, index) => {
+      if (magnifierX === null) return this.unmagnifiedDockAppWidth;
+
+      let appCenter = this.computeDockWidth(this.unmagnifiedDockAppWidths.slice(0, index)) + (this.unmagnifiedDockAppWidth / 2);
+      let distance = Math.abs(magnifierX - appCenter);
+      let distancePercent = 1 - (distance / this.magnifierRadius);
+      // let magnification = this.props.magnification; // TODO.
+      return this.unmagnifiedDockAppWidth + (this.unmagnifiedDockAppWidth * Math.max(distancePercent, 0));
+    });
+  }
+
+  computeDockWidth(appWidths) {
+    return appWidths.reduce((sum, appWidth) => sum + appWidth, 0);
+  }
+
+  get unmagnifiedDockAppWidth() {
+    return 40;
+  }
+
+  get unmagnifiedDockAppWidths() {
+    return this.computeDockAppWidths();
+  }
+
+  get unmagnifiedDockWidth() {
+    return this.computeDockWidth(this.unmagnifiedDockAppWidths);
+  }
+
+  get unmagnifiedDockOffset() {
+    return Math.abs(this.unmagnifiedDockWidth - this.maxMagnifiedDockWidth);
+  }
+
+  get magnifiedDockAppWidths() {
+    return this.computeDockAppWidths(this.state.magnifierX);
+  }
+
+  get magnifiedDockWidth() {
+    return this.computeDockWidth(this.magnifiedDockAppWidths);
+  }
+
+  get magnifiedDockOffset() {
+    return Math.abs(this.magnifiedDockWidth - this.maxMagnifiedDockWidth);
+  }
+
+  get maxMagnifiedDockWidth() {
+    // The dock's width will be maximum when the mouse is magnifying the center of it.
+    return this.computeDockWidth(this.computeDockAppWidths(this.unmagnifiedDockWidth / 2));
+  }
+
+  get magnifierRadius() {
+    return this.unmagnifiedDockAppWidth * 3;
   }
 }
