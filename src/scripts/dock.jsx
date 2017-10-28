@@ -40,11 +40,9 @@ export default class extends React.Component {
         {/* offsetLeft */}
         <div style={{ background: offsetColor, height: "100%", }} />
 
-        {this.props.apps.map((app, index) => (
-          <div key={index} style={{ display: "flex", flexDirection: "column" }}>
-            <svg viewBox="0 0 1 1">
-              <circle cx="0.5" cy="0.5" r="0.5" />
-            </svg>
+        {React.Children.map(this.props.children, (app, index) => (
+          <div key={index} style={{ display: "flex", flexDirection: "column", alignItems: "center", }} >
+            {React.cloneElement(app, { style: { width: "100%" } })}
           </div>
         ))}
 
@@ -71,7 +69,7 @@ export default class extends React.Component {
   }
 
   computeDockAppWidths(magnifierX = null) {
-    return this.props.apps.map((app, index) => {
+    return React.Children.map(this.props.children, (app, index) => {
       if (magnifierX === null) return this.props.appWidth;
 
       let appCenter = this.computeDockWidth(this.unmagnifiedDockAppWidths.slice(0, index)) + (this.props.appWidth / 2);
