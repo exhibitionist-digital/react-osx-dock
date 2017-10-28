@@ -77,8 +77,7 @@ export default class extends React.Component {
       let appCenter = this.computeDockWidth(this.unmagnifiedDockAppWidths.slice(0, index)) + (this.props.appWidth / 2);
       let distance = Math.abs(magnifierX - appCenter);
       let distancePercent = 1 - (distance / this.magnifierRadius);
-      // let magnification = this.props.magnification; // TODO.
-      return this.props.appWidth * (1 + Math.max(distancePercent, 0));
+      return this.props.appWidth + (this.props.appWidth * Math.max(distancePercent, 0) * Math.max(this.props.magnification, 0));
     });
   }
 

@@ -6,7 +6,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="app">
-        <Dock apps={Array.from({ length: 16 })} appWidth={40} debug={true} />
+        <Dock apps={Array.from({ length: 16 })} appWidth={40} magnification={1} debug={true} />
       </div>
     );
   }
