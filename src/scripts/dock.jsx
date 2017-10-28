@@ -23,6 +23,8 @@ export default class extends React.Component {
       else 0;
     };
 
+    let offsetColor = this.props.debug ? "red" : "transparent";
+
     return (
       <div
         className={this.props.className}
@@ -30,14 +32,13 @@ export default class extends React.Component {
         onMouseLeave={::this.onMouseLeave}
         style={{
           display: "grid",
-          gridTemplateColumns: [offsetLeft, ...appWidths, offsetRight].map(colWidth => `${colWidth}px`).join(" "),
+          gridTemplateColumns: [ offsetLeft, ...appWidths, offsetRight, ].map(colWidth => `${colWidth}px`).join(" "),
           alignItems: "end",
           // gridColumnGap: "10px",
         }}
       >
         {/* offsetLeft */}
-        <div style={{ background: "red", height: "100%" }}>
-        </div>
+        <div style={{ background: offsetColor, height: "100%", }} />
 
         {this.props.apps.map((app, index) => (
           <div key={index} style={{ display: "flex", flexDirection: "column" }}>
@@ -48,8 +49,7 @@ export default class extends React.Component {
         ))}
 
         {/* offsetRight */}
-        <div style={{ background: "red", height: "100%" }}>
-        </div>
+        <div style={{ background: offsetColor, height: "100%", }} />
       </div>
     );
   }
@@ -72,22 +72,18 @@ export default class extends React.Component {
 
   computeDockAppWidths(magnifierX = null) {
     return this.props.apps.map((app, index) => {
-      if (magnifierX === null) return this.unmagnifiedDockAppWidth;
+      if (magnifierX === null) return this.props.appWidth;
 
-      let appCenter = this.computeDockWidth(this.unmagnifiedDockAppWidths.slice(0, index)) + (this.unmagnifiedDockAppWidth / 2);
+      let appCenter = this.computeDockWidth(this.unmagnifiedDockAppWidths.slice(0, index)) + (this.props.appWidth / 2);
       let distance = Math.abs(magnifierX - appCenter);
       let distancePercent = 1 - (distance / this.magnifierRadius);
       // let magnification = this.props.magnification; // TODO.
-      return this.unmagnifiedDockAppWidth + (this.unmagnifiedDockAppWidth * Math.max(distancePercent, 0));
+      return this.props.appWidth * (1 + Math.max(distancePercent, 0));
     });
   }
 
   computeDockWidth(appWidths) {
     return appWidths.reduce((sum, appWidth) => sum + appWidth, 0);
-  }
-
-  get unmagnifiedDockAppWidth() {
-    return 40;
   }
 
   get unmagnifiedDockAppWidths() {
@@ -120,6 +116,6 @@ export default class extends React.Component {
   }
 
   get magnifierRadius() {
-    return this.unmagnifiedDockAppWidth * 3;
+    return this.props.appWidth * 3;
   }
 }
