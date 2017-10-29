@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import DockApp from "./dock-app";
+import DockOffset from "./dock-offset";
 
 export default class extends React.Component {
   static App = DockApp;
@@ -26,26 +27,12 @@ export default class extends React.Component {
 
   renderDockOffsetLeft() {
     let width = this.state.magnifierX === null ? this.unmagnifiedDockOffsetLeft : this.magnifiedDockOffsetLeft;
-
-    return (
-      <div style={{
-        background: this.props.debug ? "red" : "transparent",
-        width: `${width}px`,
-        height: "100%",
-      }} />
-    );
+    return (<DockOffset width={width} debug={this.props.debug} />);
   }
 
   renderDockOffsetRight() {
     let width = this.state.magnifierX === null ? this.unmagnifiedDockOffsetRight : this.magnifiedDockOffsetRight;
-
-    return (
-      <div style={{
-        background: this.props.debug ? "red" : "transparent",
-        width: `${width}px`,
-        height: "100%",
-      }} />
-    );
+    return (<DockOffset width={width} debug={this.props.debug} />);
   }
 
   renderDock() {
