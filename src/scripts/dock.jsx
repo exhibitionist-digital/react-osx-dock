@@ -9,58 +9,86 @@ export default class extends React.Component {
   }
 
   render() {
-    let { magnifierX } = this.state;
-    let appWidths = magnifierX === null ? this.unmagnifiedDockAppWidths : this.magnifiedDockAppWidths;
-    let offsetLeft = magnifierX === null ? this.unmagnifiedDockOffsetLeft : this.magnifiedDockOffsetLeft;
-    let offsetRight = magnifierX === null ? this.unmagnifiedDockOffsetRight : this.magnifiedDockOffsetRight;
-    let offsetColor = this.props.debug ? "red" : "transparent";
-
     return (
       <div onMouseMove={::this.onMouseMove} onMouseLeave={::this.onMouseLeave} style={{
         display: "grid",
-        gridTemplateColumns: `${offsetLeft}px auto ${offsetRight}px`
+        gridTemplateColumns: "auto auto auto"
       }} className={this.props.className} >
-        {/* left offset */}
-        <div style={{ background: offsetColor, height: "100%", }} />
-
-        {/* dock */}
-        <div style={{
-          display: "grid",
-          gridTemplateColumns: appWidths.map(colWidth => `${colWidth}px`).join(" "),
-          alignItems: "end",
-          position: "relative",
-          // gridColumnGap: "10px",
-        }} >
-          {/* dock apps */}
-          {React.Children.map(this.props.children, (app, index) => (
-            <div key={index} style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              zIndex: 1,
-            }} >
-              {React.cloneElement(app, { style: { width: "100%" } })}
-            </div>
-          ))}
-
-          {/* dock background */}
-          <div style={{
-            position: "absolute",
-            left: 0,
-            bottom: 0,
-            width: "100%",
-            height: `${this.props.appWidth}px`,
-            background: "#ccc",
-            opacity: 0.6,
-            borderRadius: "4px 4px 0px 0px",
-            boxShadow: "1px 1px 50px 4px rgba(0, 0, 0, 0.8)",
-            zIndex: "0",
-          }} />
-        </div>
-
-        {/* right offset */}
-        <div style={{ background: offsetColor, height: "100%", }} />
+        {this.renderDockOffsetLeft()}
+        {this.renderDock()}
+        {this.renderDockOffsetRight()}
       </div>
+    );
+  }
+
+  renderDockOffsetLeft() {
+    let width = this.state.magnifierX === null ? this.unmagnifiedDockOffsetLeft : this.magnifiedDockOffsetLeft;
+
+    return (
+      <div style={{
+        background: this.props.debug ? "red" : "transparent",
+        width: `${width}px`,
+        height: "100%",
+      }} />
+    );
+  }
+
+  renderDockOffsetRight() {
+    let width = this.state.magnifierX === null ? this.unmagnifiedDockOffsetRight : this.magnifiedDockOffsetRight;
+
+    return (
+      <div style={{
+        background: this.props.debug ? "red" : "transparent",
+        width: `${width}px`,
+        height: "100%",
+      }} />
+    );
+  }
+
+  renderDock() {
+    let appWidths = this.state.magnifierX === null ? this.unmagnifiedDockAppWidths : this.magnifiedDockAppWidths;
+
+    return (
+      <div style={{
+        display: "grid",
+        gridTemplateColumns: appWidths.map(colWidth => `${colWidth}px`).join(" "),
+        alignItems: "end",
+        position: "relative",
+        // gridColumnGap: "10px",
+      }} >
+        {this.renderDockApps()}
+        {this.renderDockBackground()}
+      </div>
+    );
+  }
+
+  renderDockApps() {
+    return React.Children.map(this.props.children, (app, index) => (
+      <div key={index} style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        zIndex: 1,
+      }} >
+        {React.cloneElement(app, { style: { width: "100%" } })}
+      </div>
+    ));
+  }
+
+  renderDockBackground() {
+    return (
+      <div style={{
+        position: "absolute",
+        left: 0,
+        bottom: 0,
+        width: "100%",
+        height: `${this.props.appWidth}px`,
+        background: "#ccc",
+        opacity: 0.6,
+        borderRadius: "4px 4px 0px 0px",
+        boxShadow: "1px 1px 50px 4px rgba(0, 0, 0, 0.8)",
+        zIndex: 0,
+      }} />
     );
   }
 
