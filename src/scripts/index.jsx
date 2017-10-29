@@ -6,7 +6,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="app">
-        <Dock className="dock" appWidth={50} magnification={1} debug={false}>
+        <Dock className="dock" width={Math.min(700, window.innerWidth * 0.6)} magnification={1} debug={false}>
           <img src="images/finder.png" />
           <img src="images/settings.png" />
           <img src="images/app-store.png" onClick={() => console.log("!")} />

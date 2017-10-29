@@ -82,7 +82,7 @@ export default class extends React.Component {
         left: 0,
         bottom: 0,
         width: "100%",
-        height: `${this.props.appWidth}px`,
+        height: `${this.unmagnifiedDockAppWidth}px`,
         background: "#ccc",
         opacity: 0.6,
         borderRadius: "4px 4px 0px 0px",
@@ -110,17 +110,21 @@ export default class extends React.Component {
 
   computeDockAppWidths(magnifierX = null) {
     return React.Children.map(this.props.children, (app, index) => {
-      if (magnifierX === null) return this.props.appWidth;
+      if (magnifierX === null) return this.unmagnifiedDockAppWidth;
 
-      let appCenter = this.computeDockWidth(this.unmagnifiedDockAppWidths.slice(0, index)) + (this.props.appWidth / 2);
+      let appCenter = this.computeDockWidth(this.unmagnifiedDockAppWidths.slice(0, index)) + (this.unmagnifiedDockAppWidth / 2);
       let distance = Math.abs(magnifierX - appCenter);
-      let distancePercent = 1 - (distance / this.magnifierRadius);
-      return this.props.appWidth + (this.props.appWidth * Math.max(distancePercent, 0) * Math.max(this.props.magnification, 0));
+      let distancePercent = Math.max(1 - (distance / this.magnifierRadius), 0);
+      return this.unmagnifiedDockAppWidth + (this.unmagnifiedDockAppWidth * distancePercent * this.magnification);
     });
   }
 
   computeDockWidth(appWidths) {
     return appWidths.reduce((sum, appWidth) => sum + appWidth, 0);
+  }
+
+  get unmagnifiedDockAppWidth() {
+    return this.props.width / React.Children.count(this.props.children);
   }
 
   get unmagnifiedDockAppWidths() {
@@ -169,6 +173,10 @@ export default class extends React.Component {
   }
 
   get magnifierRadius() {
-    return this.props.appWidth * 3;
+    return this.unmagnifiedDockAppWidth * 3;
+  }
+
+  get magnification() {
+    return Math.max(this.props.magnification, 0);
   }
 }
