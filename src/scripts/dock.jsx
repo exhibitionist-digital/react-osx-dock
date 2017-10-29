@@ -1,7 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import DockApp from "./dock-app";
 
 export default class extends React.Component {
+  static App = DockApp;
+
   constructor(props) {
     super(props);
 
@@ -63,16 +66,11 @@ export default class extends React.Component {
   }
 
   renderDockApps() {
-    return React.Children.map(this.props.children, (app, index) => (
-      <div key={index} style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        zIndex: 1,
-      }} >
-        {React.cloneElement(app, { style: { width: "100%" } })}
-      </div>
-    ));
+    React.Children.forEach(this.props.children, app => {
+      if (app.type !== DockApp) throw new Error("Invalid child type.");
+    });
+
+    return this.props.children;
   }
 
   renderDockBackground() {
