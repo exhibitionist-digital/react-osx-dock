@@ -9,44 +9,56 @@ export default class extends React.Component {
   }
 
   render() {
-    let appWidths = this.state.magnifierX === null ? this.unmagnifiedDockAppWidths : this.magnifiedDockAppWidths;
-
-    let offsetLeft = do {
-      if (this.state.magnifierX === null) this.unmagnifiedDockOffset / 2;
-      else if (this.state.magnifierX < this.unmagnifiedDockWidth / 2) this.magnifiedDockOffset;
-      else 0;
-    };
-
-    let offsetRight = do {
-      if (this.state.magnifierX === null) this.unmagnifiedDockOffset / 2;
-      else if (this.state.magnifierX > this.unmagnifiedDockWidth / 2) this.magnifiedDockOffset;
-      else 0;
-    };
-
+    let { magnifierX } = this.state;
+    let appWidths = magnifierX === null ? this.unmagnifiedDockAppWidths : this.magnifiedDockAppWidths;
+    let offsetLeft = magnifierX === null ? this.unmagnifiedDockOffsetLeft : this.magnifiedDockOffsetLeft;
+    let offsetRight = magnifierX === null ? this.unmagnifiedDockOffsetRight : this.magnifiedDockOffsetRight;
     let offsetColor = this.props.debug ? "red" : "transparent";
 
     return (
-      <div
-        className={this.props.className}
-        onMouseMove={::this.onMouseMove}
-        onMouseLeave={::this.onMouseLeave}
-        style={{
-          display: "grid",
-          gridTemplateColumns: [ offsetLeft, ...appWidths, offsetRight, ].map(colWidth => `${colWidth}px`).join(" "),
-          alignItems: "end",
-          // gridColumnGap: "10px",
-        }}
-      >
-        {/* offsetLeft */}
+      <div onMouseMove={::this.onMouseMove} onMouseLeave={::this.onMouseLeave} style={{
+        display: "grid",
+        gridTemplateColumns: `${offsetLeft}px auto ${offsetRight}px`
+      }} className={this.props.className} >
+        {/* left offset */}
         <div style={{ background: offsetColor, height: "100%", }} />
 
-        {React.Children.map(this.props.children, (app, index) => (
-          <div key={index} style={{ display: "flex", flexDirection: "column", alignItems: "center", }} >
-            {React.cloneElement(app, { style: { width: "100%" } })}
-          </div>
-        ))}
+        {/* dock */}
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: appWidths.map(colWidth => `${colWidth}px`).join(" "),
+          alignItems: "end",
+          position: "relative",
+          // gridColumnGap: "10px",
+        }} >
+          {/* dock apps */}
+          {React.Children.map(this.props.children, (app, index) => (
+            <div key={index} style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              zIndex: 1,
+            }} >
+              {React.cloneElement(app, { style: { width: "100%" } })}
+            </div>
+          ))}
 
-        {/* offsetRight */}
+          {/* dock background */}
+          <div style={{
+            position: "absolute",
+            left: 0,
+            bottom: 0,
+            width: "100%",
+            height: `${this.props.appWidth}px`,
+            background: "#ccc",
+            opacity: 0.6,
+            borderRadius: "4px 4px 0px 0px",
+            boxShadow: "1px 1px 50px 4px rgba(0, 0, 0, 0.8)",
+            zIndex: "0",
+          }} />
+        </div>
+
+        {/* right offset */}
         <div style={{ background: offsetColor, height: "100%", }} />
       </div>
     );
@@ -95,6 +107,14 @@ export default class extends React.Component {
     return Math.abs(this.unmagnifiedDockWidth - this.maxMagnifiedDockWidth);
   }
 
+  get unmagnifiedDockOffsetLeft() {
+    return this.unmagnifiedDockOffset / 2;
+  }
+
+  get unmagnifiedDockOffsetRight() {
+    return this.unmagnifiedDockOffsetLeft;
+  }
+
   get magnifiedDockAppWidths() {
     return this.computeDockAppWidths(this.state.magnifierX);
   }
@@ -105,6 +125,14 @@ export default class extends React.Component {
 
   get magnifiedDockOffset() {
     return Math.abs(this.magnifiedDockWidth - this.maxMagnifiedDockWidth);
+  }
+
+  get magnifiedDockOffsetLeft() {
+    return this.state.magnifierX < this.unmagnifiedDockWidth / 2 ? this.magnifiedDockOffset : 0;
+  }
+
+  get magnifiedDockOffsetRight() {
+    return this.state.magnifierX >= this.unmagnifiedDockWidth / 2 ? this.magnifiedDockOffset : 0;
   }
 
   get maxMagnifiedDockWidth() {
