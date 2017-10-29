@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import Dock from "./dock";
 import DockApp from "./dock-app";
 import DockOffset from "./dock-offset";
-import DockBackground from "./dock-background";
 
 export default class extends React.Component {
   static App = DockApp;
@@ -14,70 +14,36 @@ export default class extends React.Component {
   }
 
   render() {
-    return (
-      <div onMouseMove={::this.onMouseMove} onMouseLeave={::this.onMouseLeave} style={{
-        display: "grid",
-        gridTemplateColumns: "auto auto auto"
-      }} className={this.props.className} >
-        {this.renderDockOffsetLeft()}
-        {this.renderDock()}
-        {this.renderDockOffsetRight()}
-      </div>
-    );
-  }
-
-  renderDockOffsetLeft() {
-    let width = this.state.magnifierX === null ? this.unmagnifiedDockOffsetLeft : this.magnifiedDockOffsetLeft;
-    return (<DockOffset width={width} debug={this.props.debug} />);
-  }
-
-  renderDockOffsetRight() {
-    let width = this.state.magnifierX === null ? this.unmagnifiedDockOffsetRight : this.magnifiedDockOffsetRight;
-    return (<DockOffset width={width} debug={this.props.debug} />);
-  }
-
-  renderDock() {
+    let offsetLeft = this.state.magnifierX === null ? this.unmagnifiedDockOffsetLeft : this.magnifiedDockOffsetLeft;
+    let offsetRight = this.state.magnifierX === null ? this.unmagnifiedDockOffsetRight : this.magnifiedDockOffsetRight;
     let appWidths = this.state.magnifierX === null ? this.unmagnifiedDockAppWidths : this.magnifiedDockAppWidths;
 
     return (
-      <div style={{
+      <div className={this.props.className} onMouseMove={::this.onMagnify} onMouseLeave={::this.onUnmagnify} style={{
         display: "grid",
-        gridTemplateColumns: appWidths.map(colWidth => `${colWidth}px`).join(" "),
-        alignItems: "end",
-        position: "relative",
-        // gridColumnGap: "10px",
-      }} >
-        {this.renderDockApps()}
-        {this.renderDockBackground()}
+        gridTemplateColumns: "auto auto auto",
+      }}>
+        <DockOffset width={offsetLeft} debug={this.props.debug} />
+        <Dock appWidths={appWidths} height={this.unmagnifiedDockAppWidth}>
+          {this.props.children}
+        </Dock>
+        <DockOffset width={offsetRight} debug={this.props.debug} />
       </div>
     );
   }
 
-  renderDockApps() {
-    React.Children.forEach(this.props.children, app => {
-      if (app.type !== DockApp) throw new Error("Invalid child type.");
-    });
-
-    return this.props.children;
-  }
-
-  renderDockBackground() {
-    return (<DockBackground height={this.unmagnifiedDockAppWidth} />);
-  }
-
-  onMouseMove(event) {
+  onMagnify(event) {
     let element = ReactDOM.findDOMNode(this);
-    let magnifierX = event.pageX - element.offsetLeft - (this.unmagnifiedDockOffset / 2);
+    let magnifierX = event.pageX - element.offsetLeft - this.unmagnifiedDockOffsetLeft;
 
-    // If the mouse isn't over the dock, don't bother recording its coordinates.
-    if (magnifierX < 0 || magnifierX > this.unmagnifiedDockWidth) {
-      magnifierX = null;
+    if (magnifierX >= 0 && magnifierX < this.unmagnifiedDockWidth) {
+      this.setState({ magnifierX });
+    } else {
+      this.onUnmagnify(); // The mouse isn't over the dock; don't bother recording its coordinates.
     }
-
-    this.setState({ magnifierX });
   }
 
-  onMouseLeave(event) {
+  onUnmagnify() {
     this.setState({ magnifierX: null });
   }
 
@@ -92,7 +58,7 @@ export default class extends React.Component {
     });
   }
 
-  computeDockWidth(appWidths) {
+  computeDockWidth(appWidths = []) {
     return appWidths.reduce((sum, appWidth) => sum + appWidth, 0);
   }
 
