@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import DockApp from "./dock-app";
 import DockOffset from "./dock-offset";
+import DockBackground from "./dock-background";
 
 export default class extends React.Component {
   static App = DockApp;
@@ -61,20 +62,7 @@ export default class extends React.Component {
   }
 
   renderDockBackground() {
-    return (
-      <div style={{
-        position: "absolute",
-        left: 0,
-        bottom: 0,
-        width: "100%",
-        height: `${this.unmagnifiedDockAppWidth}px`,
-        background: "#ccc",
-        opacity: 0.6,
-        borderRadius: "4px 4px 0px 0px",
-        boxShadow: "1px 1px 50px 4px rgba(0, 0, 0, 0.8)",
-        zIndex: 0,
-      }} />
-    );
+    return (<DockBackground height={this.unmagnifiedDockAppWidth} />);
   }
 
   onMouseMove(event) {
