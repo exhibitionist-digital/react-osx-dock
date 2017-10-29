@@ -6,7 +6,13 @@ class App extends React.Component {
   render() {
     return (
       <div className="app">
-        <Dock className="dock" width={Math.min(650, window.innerWidth * 0.6)} magnification={1} debug={false}>
+        <Dock
+          className="dock"
+          width={Math.min(650, window.innerWidth * 0.6)}
+          padding={3}
+          magnification={1}
+          debug={false}
+        >
           <Dock.App image="images/finder.png" onActivate={() => console.log("finder")} />
           <Dock.App image="images/settings.png" onActivate={() => console.log("settings")} />
           <Dock.App image="images/app-store.png" onActivate={() => console.log("app-store")} />

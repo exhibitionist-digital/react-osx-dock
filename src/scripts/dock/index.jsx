@@ -24,7 +24,7 @@ export default class extends React.Component {
         gridTemplateColumns: "auto auto auto",
       }}>
         <DockOffset width={offsetLeft} debug={this.props.debug} />
-        <Dock appWidths={appWidths} height={this.unmagnifiedDockAppWidth}>
+        <Dock appWidths={appWidths} height={this.unmagnifiedDockAppWidth} padding={this.padding}>
           {this.props.children}
         </Dock>
         <DockOffset width={offsetRight} debug={this.props.debug} />
@@ -117,5 +117,9 @@ export default class extends React.Component {
 
   get magnification() {
     return Math.max(this.props.magnification, 0);
+  }
+
+  get padding() {
+    return this.props.padding || 0;
   }
 }
