@@ -2,10 +2,16 @@ import React from "react";
 
 export default function(props) {
   return (
-    <img className={props.className} src={props.image} onClick={props.onActivate} style={{
-      width: `calc(${props.width - (props.padding * 2)}px)`,
-      padding: `${props.padding}px`,
+    <div className={props.className} onClick={props.onClick} style={{
+      width: `${props.width}px`,
+      height: `${props.width}px`,
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
       zIndex: 1,
-    }} />
+    }}>
+      {props.children}
+    </div>
   );
 }

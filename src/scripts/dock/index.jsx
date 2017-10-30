@@ -28,7 +28,6 @@ export default class extends React.Component {
           backgroundClassName={this.props.backgroundClassName}
           appWidths={appWidths}
           height={this.unmagnifiedDockAppWidth}
-          padding={this.padding}
         >
           {this.props.children}
         </Dock>
@@ -122,9 +121,5 @@ export default class extends React.Component {
 
   get magnification() {
     return Math.max(this.props.magnification, 0);
-  }
-
-  get padding() {
-    return this.props.padding || 0;
   }
 }

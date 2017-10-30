@@ -47,24 +47,46 @@ class App extends React.Component {
       <Dock
         className="dock"
         backgroundClassName="dock-background"
-        width={Math.min(650, window.innerWidth * 0.6)}
-        padding={3}
-        magnification={1}
+        width={Math.min(800, window.innerWidth * 0.6)}
+        magnification={0.8}
         debug={false}
       >
-        <Dock.App image="images/osx/finder.png" onActivate={() => console.log("finder")} />
-        <Dock.App image="images/osx/settings.png" onActivate={() => console.log("settings")} />
-        <Dock.App image="images/osx/app-store.png" onActivate={() => console.log("app-store")} />
-        <Dock.App image="images/osx/preview.png" onActivate={() => console.log("preview")} />
-        <Dock.App image="images/osx/terminal.png" onActivate={() => console.log("terminal")} />
-        <Dock.App image="images/osx/atom.png" onActivate={() => console.log("atom")} />
-        <Dock.App image="images/osx/cyberduck.png" onActivate={() => console.log("cyberduck")} />
-        <Dock.App image="images/osx/chrome.png" onActivate={() => console.log("chrome")} />
-        <Dock.App image="images/osx/slack.png" onActivate={() => console.log("slack")} />
-        <Dock.App image="images/osx/spotify.png" onActivate={() => console.log("spotify")} />
-        <Dock.App image="images/osx/garageband.png" onActivate={() => console.log("garageband")} />
-        <Dock.App image="images/osx/steam.png" onActivate={() => console.log("steam")} />
-        <Dock.App image="images/osx/trash.png" onActivate={() => console.log("trash")} />
+        <Dock.App className="dock-app" onClick={() => console.log("finder")}>
+          <img src="images/osx/finder.png" /><span className="circle" />
+        </Dock.App>
+        <Dock.App className="dock-app">
+          <img src="images/osx/settings.png" /><span className="circle" />
+        </Dock.App>
+        <Dock.App className="dock-app">
+          <img src="images/osx/app-store.png" /><span className="circle" />
+        </Dock.App>
+        <Dock.App className="dock-app">
+          <img src="images/osx/preview.png" /><span className="circle" />
+        </Dock.App>
+        <Dock.App className="dock-app">
+          <img src="images/osx/terminal.png" /><span className="circle" />
+        </Dock.App>
+        <Dock.App className="dock-app">
+          <img src="images/osx/atom.png" /><span className="circle" />
+        </Dock.App>
+        <Dock.App className="dock-app">
+          <img src="images/osx/slack.png" /><span className="circle" />
+        </Dock.App>
+        <Dock.App className="dock-app">
+          <img src="images/osx/chrome.png" /><span className="circle" />
+        </Dock.App>
+        <Dock.App className="dock-app">
+          <img src="images/osx/spotify.png" /><span className="circle" />
+        </Dock.App>
+        <Dock.App className="dock-app">
+          <img src="images/osx/guitar-pro.png" /><span className="circle" />
+        </Dock.App>
+        <Dock.App className="dock-app">
+          <img src="images/osx/steam.png" /><span className="circle" />
+        </Dock.App>
+        <Dock.App className="dock-app">
+          <img src="images/osx/trash.png" /><span className="circle" />
+        </Dock.App>
       </Dock>
     );
   }
@@ -73,17 +95,28 @@ class App extends React.Component {
     return (
       <Dock
         className="dock"
-        width={Math.min(600, window.innerWidth * 0.6)}
-        padding={20}
-        magnification={0.8}
+        width={Math.min(700, window.innerWidth * 0.5)}
+        magnification={0.7}
         debug={false}
       >
-        <Dock.App image="images/social/facebook.png" />
-        <Dock.App image="images/social/twitter.png" />
-        <Dock.App image="images/social/googleplus.png" />
-        <Dock.App image="images/social/instagram.png" />
-        <Dock.App image="images/social/tumblr.png" />
-        <Dock.App image="images/social/linkedin.png" />
+        <Dock.App className="dock-app">
+          <a href="https://facebook.com"><img src="images/social/facebook.png" /></a>
+        </Dock.App>
+        <Dock.App className="dock-app">
+          <a href="https://twitter.com"><img src="images/social/twitter.png" /></a>
+        </Dock.App>
+        <Dock.App className="dock-app">
+          <a href="https://plus.google.com"><img src="images/social/googleplus.png" /></a>
+        </Dock.App>
+        <Dock.App className="dock-app">
+          <a href="https://instagram.com"><img src="images/social/instagram.png" /></a>
+        </Dock.App>
+        <Dock.App className="dock-app">
+          <a href="https://tumblr.com"><img src="images/social/tumblr.png" /></a>
+        </Dock.App>
+        <Dock.App className="dock-app">
+         <a href="https://linkedin.com"><img src="images/social/linkedin.png" /></a>
+        </Dock.App>
       </Dock>
     );
   }
@@ -93,19 +126,34 @@ class App extends React.Component {
       <Dock
         className="dock"
         backgroundClassName="dock-background"
-        width={Math.min(600, window.innerWidth * 0.6)}
-        padding={10}
-        magnification={1.2}
+        width={Math.min(700, window.innerWidth * 0.5)}
+        magnification={1}
         debug={false}
       >
-        <Dock.App image="images/pokemon/pikachu.png" />
-        <Dock.App image="images/pokemon/charmander.png"/>
-        <Dock.App image="images/pokemon/squirtle.png" />
-        <Dock.App image="images/pokemon/bulbasaur.png" />
-        <Dock.App image="images/pokemon/snorlax.png" />
-        <Dock.App image="images/pokemon/psyduck.png" />
-        <Dock.App image="images/pokemon/eevee.png" />
-        <Dock.App image="images/pokemon/meowth.png" />
+        <Dock.App className="dock-app">
+          <img src="images/pokemon/pikachu.png" />
+        </Dock.App>
+        <Dock.App className="dock-app">
+          <img src="images/pokemon/charmander.png" />
+        </Dock.App>
+        <Dock.App className="dock-app">
+          <img src="images/pokemon/squirtle.png" />
+        </Dock.App>
+        <Dock.App className="dock-app">
+          <img src="images/pokemon/bulbasaur.png" />
+        </Dock.App>
+        <Dock.App className="dock-app">
+          <img src="images/pokemon/snorlax.png" />
+        </Dock.App>
+        <Dock.App className="dock-app">
+          <img src="images/pokemon/psyduck.png" />
+        </Dock.App>
+        <Dock.App className="dock-app">
+          <img src="images/pokemon/eevee.png" />
+        </Dock.App>
+        <Dock.App className="dock-app">
+          <img src="images/pokemon/meowth.png" />
+        </Dock.App>
       </Dock>
     );
   }

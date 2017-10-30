@@ -11,12 +11,11 @@ export default function(props) {
     <div style={{
       display: "grid",
       gridTemplateColumns: props.appWidths.map(() => "auto").join(" "),
-      // TODO: Use gridColumnGap for padding.
       alignItems: "end",
       position: "relative",
     }}>
       {React.Children.map(props.children, (app, index) => (
-        React.cloneElement(app, { width: props.appWidths[index], padding: props.padding, })
+        React.cloneElement(app, { width: props.appWidths[index], })
       ))}
       <DockBackground className={props.backgroundClassName} height={props.height} />
     </div>

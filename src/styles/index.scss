@@ -11,6 +11,7 @@ html, body, #react, .app {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
 
   &.osx {
     background-image: url("../images/osx/background.jpg");
@@ -19,7 +20,26 @@ html, body, #react, .app {
     background-size: cover;
 
     .dock {
+      .dock-app {
+        cursor: pointer;
+        $circle-height: 4px;
+        $circle-margin: 3px;
+
+        img {
+          height: calc(100% - #{$circle-height} - #{$circle-margin * 2});
+        }
+
+        .circle {
+          width: $circle-height;
+          height: $circle-height;
+          background-color: #4e4e4e;
+          border-radius: 50%;
+          margin: $circle-margin 0px;
+        }
+      }
+
       .dock-background {
+        padding: 3px;
         background-color: #ccc;
         opacity: 0.6;
         border-radius: 4px 4px 0px 0px;
@@ -32,6 +52,20 @@ html, body, #react, .app {
     background-image: url("../images/social/background.png");
     background-color: #999;
     background-repeat: repeat;
+
+    .dock {
+      .dock-app {
+        cursor: pointer;
+
+        a {
+          height: 80%;
+
+          img {
+            height: 100%;
+          }
+        }
+      }
+    }
   }
 
   &.pokemon {
@@ -41,7 +75,16 @@ html, body, #react, .app {
     background-repeat: repeat;
 
     .dock {
+      .dock-app {
+        cursor: pointer;
+
+        img {
+          height: 80%;
+        }
+      }
+
       .dock-background {
+        padding: 3px;
         background-color: #ffdd00;
         border: solid #eb0000;
         border-width: 3px 3px 0px 3px;
@@ -49,12 +92,6 @@ html, body, #react, .app {
         box-shadow: 1px 1px 50px 0px rgba(0, 0, 0, 0.1);
       }
     }
-  }
-}
-
-.dock {
-  img {
-    cursor: pointer;
   }
 }
 
@@ -66,7 +103,6 @@ html, body, #react, .app {
   padding: 10px;
   background: #111522;
   color: #ecedee;
-  font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
   box-shadow: 1px 1px 50px 4px rgba(0, 0, 0, 0.6);
 
   .header {
