@@ -1,0 +1,34 @@
+.osx-example {
+  background-image: url("../images/osx/background.jpg");
+  background-color: #555;
+  background-position: center;
+  background-size: cover;
+
+  .dock {
+    .dock-item {
+      cursor: pointer;
+      $active-indicator-height: 4px;
+      $active-indicator-margin: 3px;
+
+      img {
+        height: calc(100% - #{$active-indicator-height} - #{$active-indicator-margin * 2});
+      }
+
+      .active-indicator {
+        width: $active-indicator-height;
+        height: $active-indicator-height;
+        margin: $active-indicator-margin 0px;
+        background-color: #4e4e4e;
+        border-radius: 50%;
+      }
+    }
+
+    .dock-background {
+      padding: 3px;
+      background-color: #ccc;
+      opacity: 0.6;
+      border-radius: 4px 4px 0px 0px;
+      box-shadow: 1px 1px 50px 4px rgba(0, 0, 0, 0.8);
+    }
+  }
+}

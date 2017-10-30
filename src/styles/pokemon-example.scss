@@ -1,0 +1,23 @@
+.pokemon-example {
+  background-image: url("../images/pokemon/background.png");
+  background-color: #ffdd00;
+  background-position: center;
+  background-repeat: repeat;
+
+  .dock {
+    .dock-item {
+      img {
+        height: 80%;
+      }
+    }
+
+    .dock-background {
+      padding: 3px;
+      background-color: #ffdd00;
+      border: solid #eb0000;
+      border-width: 3px 3px 0px 3px;
+      border-radius: 10px 10px 0px 0px;
+      box-shadow: 1px 1px 50px 0px rgba(0, 0, 0, 0.1);
+    }
+  }
+}

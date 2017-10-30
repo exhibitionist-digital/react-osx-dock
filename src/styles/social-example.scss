@@ -1,0 +1,19 @@
+.social-example {
+  background-image: url("../images/social/background.png");
+  background-color: #999;
+  background-repeat: repeat;
+
+  .dock {
+    .dock-item {
+      cursor: pointer;
+
+      a {
+        height: 70%;
+
+        img {
+          height: 100%;
+        }
+      }
+    }
+  }
+}
