@@ -13,7 +13,7 @@ html, body, #react, .app {
   justify-content: space-between;
   font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
 
-  &.osx {
+  &.osx-example {
     background-image: url("../images/osx/background.jpg");
     background-color: #555;
     background-position: center;
@@ -48,7 +48,7 @@ html, body, #react, .app {
     }
   }
 
-  &.social {
+  &.social-example {
     background-image: url("../images/social/background.png");
     background-color: #999;
     background-repeat: repeat;
@@ -68,7 +68,7 @@ html, body, #react, .app {
     }
   }
 
-  &.pokemon {
+  &.pokemon-example {
     background-image: url("../images/pokemon/background.png");
     background-color: #ffdd00;
     background-position: center;
@@ -95,7 +95,7 @@ html, body, #react, .app {
   }
 }
 
-.dock-type-selector {
+.example-selector {
   display: grid;
   grid-template-columns: auto auto auto auto auto auto;
   grid-column-gap: 5px;
@@ -133,7 +133,7 @@ html, body, #react, .app {
 }
 
 @media screen and (min-width: 48em) {
-  .dock-type-selector {
+  .example-selector {
     align-self: flex-start;
   }
 
