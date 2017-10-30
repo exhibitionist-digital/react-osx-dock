@@ -18,7 +18,7 @@ export default function(props) {
       {React.Children.map(props.children, (app, index) => (
         React.cloneElement(app, { width: props.appWidths[index], padding: props.padding, })
       ))}
-      <DockBackground height={props.height} />
+      <DockBackground className={props.backgroundClassName} height={props.height} />
     </div>
   );
 }

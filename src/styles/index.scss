@@ -17,6 +17,15 @@ html, body, #react, .app {
     background-color: #555;
     background-position: center;
     background-size: cover;
+
+    .dock {
+      .dock-background {
+        background-color: #ccc;
+        opacity: 0.6;
+        border-radius: 4px 4px 0px 0px;
+        box-shadow: 1px 1px 50px 4px rgba(0, 0, 0, 0.8);
+      }
+    }
   }
 
   &.social {
@@ -27,9 +36,19 @@ html, body, #react, .app {
 
   &.pokemon {
     background-image: url("../images/pokemon/background.png");
-    background-color: #ffdd55;
+    background-color: #ffdd00;
     background-position: center;
     background-repeat: repeat;
+
+    .dock {
+      .dock-background {
+        background-color: #ffdd00;
+        border: solid #eb0000;
+        border-width: 3px 3px 0px 3px;
+        border-radius: 10px 10px 0px 0px;
+        box-shadow: 1px 1px 50px 0px rgba(0, 0, 0, 0.1);
+      }
+    }
   }
 }
 

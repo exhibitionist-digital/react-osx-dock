@@ -24,7 +24,12 @@ export default class extends React.Component {
         gridTemplateColumns: "auto auto auto",
       }}>
         <DockOffset width={offsetLeft} height={this.unmagnifiedDockAppWidth} debug={this.props.debug} />
-        <Dock appWidths={appWidths} height={this.unmagnifiedDockAppWidth} padding={this.padding}>
+        <Dock
+          backgroundClassName={this.props.backgroundClassName}
+          appWidths={appWidths}
+          height={this.unmagnifiedDockAppWidth}
+          padding={this.padding}
+        >
           {this.props.children}
         </Dock>
         <DockOffset width={offsetRight} height={this.unmagnifiedDockAppWidth} debug={this.props.debug} />

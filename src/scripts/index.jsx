@@ -46,6 +46,7 @@ class App extends React.Component {
     return (
       <Dock
         className="dock"
+        backgroundClassName="dock-background"
         width={Math.min(650, window.innerWidth * 0.6)}
         padding={3}
         magnification={1}
@@ -74,7 +75,7 @@ class App extends React.Component {
         className="dock"
         width={Math.min(600, window.innerWidth * 0.6)}
         padding={20}
-        magnification={1}
+        magnification={0.8}
         debug={false}
       >
         <Dock.App image="images/social/facebook.png" />
@@ -91,6 +92,7 @@ class App extends React.Component {
     return (
       <Dock
         className="dock"
+        backgroundClassName="dock-background"
         width={Math.min(600, window.innerWidth * 0.6)}
         padding={10}
         magnification={1.2}
