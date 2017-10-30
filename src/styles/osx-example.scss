@@ -7,24 +7,24 @@
   .dock {
     .dock-item {
       cursor: pointer;
+      padding: 6px 0px 3px 0px;
       $active-indicator-height: 4px;
-      $active-indicator-margin: 3px;
+      $active-indicator-margin: 2px;
 
       img {
-        height: calc(100% - #{$active-indicator-height} - #{$active-indicator-margin * 2});
+        height: calc(100% - #{$active-indicator-height} - #{$active-indicator-margin});
       }
 
       .active-indicator {
         width: $active-indicator-height;
         height: $active-indicator-height;
-        margin: $active-indicator-margin 0px;
+        margin-top: $active-indicator-margin;
         background-color: #4e4e4e;
         border-radius: 50%;
       }
     }
 
     .dock-background {
-      padding: 3px;
       background-color: #ccc;
       opacity: 0.6;
       border-radius: 4px 4px 0px 0px;

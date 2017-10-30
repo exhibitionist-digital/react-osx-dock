@@ -6,13 +6,14 @@
 
   .dock {
     .dock-item {
+      padding: 12px 0px 8px 0px;
+
       img {
-        height: 80%;
+        height: 100%;
       }
     }
 
     .dock-background {
-      padding: 3px;
       background-color: #ffdd00;
       border: solid #eb0000;
       border-width: 3px 3px 0px 3px;
