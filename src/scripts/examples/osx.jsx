@@ -1,51 +1,58 @@
 import React from "react";
 import Dock from "../dock";
 
-export default function(props) {
-  return (
-    <Dock
-      className="dock"
-      backgroundClassName="dock-background"
-      width={Math.min(800, window.innerWidth * 0.6)}
-      magnification={0.8}
-      debug={false}
-    >
-      <Dock.App className="dock-app" onClick={() => console.log("finder")}>
-        <img src="images/osx/finder.png" /><span className="circle" />
-      </Dock.App>
-      <Dock.App className="dock-app">
-        <img src="images/osx/settings.png" /><span className="circle" />
-      </Dock.App>
-      <Dock.App className="dock-app">
-        <img src="images/osx/app-store.png" /><span className="circle" />
-      </Dock.App>
-      <Dock.App className="dock-app">
-        <img src="images/osx/preview.png" /><span className="circle" />
-      </Dock.App>
-      <Dock.App className="dock-app">
-        <img src="images/osx/terminal.png" /><span className="circle" />
-      </Dock.App>
-      <Dock.App className="dock-app">
-        <img src="images/osx/atom.png" /><span className="circle" />
-      </Dock.App>
-      <Dock.App className="dock-app">
-        <img src="images/osx/slack.png" /><span className="circle" />
-      </Dock.App>
-      <Dock.App className="dock-app">
-        <img src="images/osx/chrome.png" /><span className="circle" />
-      </Dock.App>
-      <Dock.App className="dock-app">
-        <img src="images/osx/spotify.png" /><span className="circle" />
-      </Dock.App>
-      <Dock.App className="dock-app">
-        <img src="images/osx/guitar-pro.png" /><span className="circle" />
-      </Dock.App>
-      <Dock.App className="dock-app">
-        <img src="images/osx/steam.png" /><span className="circle" />
-      </Dock.App>
-      <Dock.App className="dock-app">
-        <img src="images/osx/trash.png" /><span className="circle" />
-      </Dock.App>
-    </Dock>
-  );
+export default class extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { activatedApps: this.apps.filter(() => Math.random() > 0.5) };
+  }
+
+  render() {
+    return (
+      <Dock
+        className="dock"
+        backgroundClassName="dock-background"
+        width={Math.min(800, window.innerWidth * 0.6)}
+        magnification={0.8}
+        debug={false}
+      >
+        {this.apps.map((app, index) => (
+          <Dock.App key={index} className="dock-app" onClick={() => this.toggleAppActivation(app)}>
+            <img src={`images/osx/${app}.png`} />
+            <span className="active-indicator" style={{ opacity: this.state.activatedApps.includes(app) ? 1 : 0 }} />
+          </Dock.App>
+        ))}
+      </Dock>
+    );
+  }
+
+  toggleAppActivation(app) {
+    let activatedApps = Array.from(this.state.activatedApps);
+
+    if (activatedApps.includes(app)) {
+      activatedApps.splice(activatedApps.indexOf(app), 1);
+    } else {
+      activatedApps.push(app);
+    }
+
+    this.setState({ activatedApps });
+  }
+
+  get apps() {
+    return [
+      "finder",
+      "settings",
+      "app-store",
+      "preview",
+      "terminal",
+      "atom",
+      "slack",
+      "chrome",
+      "spotify",
+      "guitar-pro",
+      "steam",
+      "trash",
+    ];
+  }
 }

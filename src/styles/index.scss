@@ -22,19 +22,19 @@ html, body, #react, .app {
     .dock {
       .dock-app {
         cursor: pointer;
-        $circle-height: 4px;
-        $circle-margin: 3px;
+        $active-indicator-height: 4px;
+        $active-indicator-margin: 3px;
 
         img {
-          height: calc(100% - #{$circle-height} - #{$circle-margin * 2});
+          height: calc(100% - #{$active-indicator-height} - #{$active-indicator-margin * 2});
         }
 
-        .circle {
-          width: $circle-height;
-          height: $circle-height;
+        .active-indicator {
+          width: $active-indicator-height;
+          height: $active-indicator-height;
+          margin: $active-indicator-margin 0px;
           background-color: #4e4e4e;
           border-radius: 50%;
-          margin: $circle-margin 0px;
         }
       }
 
@@ -76,8 +76,6 @@ html, body, #react, .app {
 
     .dock {
       .dock-app {
-        cursor: pointer;
-
         img {
           height: 80%;
         }
