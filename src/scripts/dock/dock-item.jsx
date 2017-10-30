@@ -9,6 +9,8 @@ export default function(props) {
       flexDirection: "column",
       alignItems: "center",
       justifyContent: "center",
+      boxSizing: "border-box",
+      border: props.debug ? "1px solid red" : null,
       zIndex: 1,
     }}>
       {props.children}

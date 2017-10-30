@@ -28,6 +28,7 @@ export default class extends React.Component {
           backgroundClassName={this.props.backgroundClassName}
           itemWidths={itemWidths}
           height={this.unmagnifiedDockItemWidth}
+          debug={this.props.debug}
         >
           {this.props.children}
         </Dock>

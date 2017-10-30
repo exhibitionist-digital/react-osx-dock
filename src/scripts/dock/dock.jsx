@@ -15,9 +15,9 @@ export default function(props) {
       position: "relative",
     }}>
       {React.Children.map(props.children, (item, index) => (
-        React.cloneElement(item, { width: props.itemWidths[index], })
+        React.cloneElement(item, { width: props.itemWidths[index], debug: props.debug, })
       ))}
-      <DockBackground className={props.backgroundClassName} height={props.height} />
+      <DockBackground className={props.backgroundClassName} height={props.height} debug={props.debug} />
     </div>
   );
 }

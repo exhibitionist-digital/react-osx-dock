@@ -9,6 +9,7 @@ export default function(props) {
       width: "100%",
       height: `${props.height}px`,
       transform: "translateX(-50%)",
+      border: props.debug ? "1px solid red" : null,
       zIndex: 0,
     }} />
   );
