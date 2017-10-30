@@ -1,11 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Dock from "./dock";
-import DockApp from "./dock-app";
+import DockItem from "./dock-item";
 import DockOffset from "./dock-offset";
 
 export default class extends React.Component {
-  static App = DockApp;
+  static Item = DockItem;
 
   constructor(props) {
     super(props);
@@ -16,22 +16,22 @@ export default class extends React.Component {
   render() {
     let offsetLeft = this.state.magnifierX === null ? this.unmagnifiedDockOffsetLeft : this.magnifiedDockOffsetLeft;
     let offsetRight = this.state.magnifierX === null ? this.unmagnifiedDockOffsetRight : this.magnifiedDockOffsetRight;
-    let appWidths = this.state.magnifierX === null ? this.unmagnifiedDockAppWidths : this.magnifiedDockAppWidths;
+    let itemWidths = this.state.magnifierX === null ? this.unmagnifiedDockItemWidths : this.magnifiedDockItemWidths;
 
     return (
       <div className={this.props.className} onMouseMove={::this.onMagnify} onMouseLeave={::this.onUnmagnify} style={{
         display: "grid",
         gridTemplateColumns: "auto auto auto",
       }}>
-        <DockOffset width={offsetLeft} height={this.unmagnifiedDockAppWidth} debug={this.props.debug} />
+        <DockOffset width={offsetLeft} height={this.unmagnifiedDockItemWidth} debug={this.props.debug} />
         <Dock
           backgroundClassName={this.props.backgroundClassName}
-          appWidths={appWidths}
-          height={this.unmagnifiedDockAppWidth}
+          itemWidths={itemWidths}
+          height={this.unmagnifiedDockItemWidth}
         >
           {this.props.children}
         </Dock>
-        <DockOffset width={offsetRight} height={this.unmagnifiedDockAppWidth} debug={this.props.debug} />
+        <DockOffset width={offsetRight} height={this.unmagnifiedDockItemWidth} debug={this.props.debug} />
       </div>
     );
   }
@@ -51,31 +51,31 @@ export default class extends React.Component {
     this.setState({ magnifierX: null });
   }
 
-  computeDockAppWidths(magnifierX = null) {
-    return React.Children.map(this.props.children, (app, index) => {
-      if (magnifierX === null) return this.unmagnifiedDockAppWidth;
+  computeDockItemWidths(magnifierX = null) {
+    return React.Children.map(this.props.children, (item, index) => {
+      if (magnifierX === null) return this.unmagnifiedDockItemWidth;
 
-      let appCenter = this.computeDockWidth(this.unmagnifiedDockAppWidths.slice(0, index)) + (this.unmagnifiedDockAppWidth / 2);
-      let distance = Math.abs(magnifierX - appCenter);
+      let itemCenter = this.computeDockWidth(this.unmagnifiedDockItemWidths.slice(0, index)) + (this.unmagnifiedDockItemWidth / 2);
+      let distance = Math.abs(magnifierX - itemCenter);
       let distancePercent = Math.max(1 - (distance / this.magnifierRadius), 0);
-      return this.unmagnifiedDockAppWidth + (this.unmagnifiedDockAppWidth * distancePercent * this.magnification);
+      return this.unmagnifiedDockItemWidth + (this.unmagnifiedDockItemWidth * distancePercent * this.magnification);
     });
   }
 
-  computeDockWidth(appWidths = []) {
-    return appWidths.reduce((sum, appWidth) => sum + appWidth, 0);
+  computeDockWidth(itemWidths = []) {
+    return itemWidths.reduce((sum, itemWidth) => sum + itemWidth, 0);
   }
 
-  get unmagnifiedDockAppWidth() {
+  get unmagnifiedDockItemWidth() {
     return this.props.width / React.Children.count(this.props.children);
   }
 
-  get unmagnifiedDockAppWidths() {
-    return this.computeDockAppWidths();
+  get unmagnifiedDockItemWidths() {
+    return this.computeDockItemWidths();
   }
 
   get unmagnifiedDockWidth() {
-    return this.computeDockWidth(this.unmagnifiedDockAppWidths);
+    return this.computeDockWidth(this.unmagnifiedDockItemWidths);
   }
 
   get unmagnifiedDockOffset() {
@@ -90,12 +90,12 @@ export default class extends React.Component {
     return this.unmagnifiedDockOffsetLeft;
   }
 
-  get magnifiedDockAppWidths() {
-    return this.computeDockAppWidths(this.state.magnifierX);
+  get magnifiedDockItemWidths() {
+    return this.computeDockItemWidths(this.state.magnifierX);
   }
 
   get magnifiedDockWidth() {
-    return this.computeDockWidth(this.magnifiedDockAppWidths);
+    return this.computeDockWidth(this.magnifiedDockItemWidths);
   }
 
   get magnifiedDockOffset() {
@@ -112,11 +112,11 @@ export default class extends React.Component {
 
   get maxMagnifiedDockWidth() {
     // The dock's width will be maximum when the mouse is magnifying the center of it.
-    return this.computeDockWidth(this.computeDockAppWidths(this.unmagnifiedDockWidth / 2));
+    return this.computeDockWidth(this.computeDockItemWidths(this.unmagnifiedDockWidth / 2));
   }
 
   get magnifierRadius() {
-    return this.unmagnifiedDockAppWidth * 3;
+    return this.unmagnifiedDockItemWidth * 3;
   }
 
   get magnification() {

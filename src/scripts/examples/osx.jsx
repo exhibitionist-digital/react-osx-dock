@@ -18,10 +18,10 @@ export default class extends React.Component {
         debug={false}
       >
         {this.apps.map((app, index) => (
-          <Dock.App key={index} className="dock-app" onClick={() => this.toggleAppActivation(app)}>
+          <Dock.Item key={index} className="dock-item" onClick={() => this.toggleAppActivation(app)}>
             <img src={`images/osx/${app}.png`} />
             <span className="active-indicator" style={{ opacity: this.state.activatedApps.includes(app) ? 1 : 0 }} />
-          </Dock.App>
+          </Dock.Item>
         ))}
       </Dock>
     );

@@ -20,7 +20,7 @@ html, body, #react, .app {
     background-size: cover;
 
     .dock {
-      .dock-app {
+      .dock-item {
         cursor: pointer;
         $active-indicator-height: 4px;
         $active-indicator-margin: 3px;
@@ -54,11 +54,11 @@ html, body, #react, .app {
     background-repeat: repeat;
 
     .dock {
-      .dock-app {
+      .dock-item {
         cursor: pointer;
 
         a {
-          height: 80%;
+          height: 70%;
 
           img {
             height: 100%;
@@ -75,7 +75,7 @@ html, body, #react, .app {
     background-repeat: repeat;
 
     .dock {
-      .dock-app {
+      .dock-item {
         img {
           height: 80%;
         }

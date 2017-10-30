@@ -1,21 +1,21 @@
 import React from "react";
-import DockApp from "./dock-app";
+import DockItem from "./dock-item";
 import DockBackground from "./dock-background";
 
 export default function(props) {
-  React.Children.forEach(props.children, app => {
-    if (app.type !== DockApp) throw new Error("Invalid child type.");
+  React.Children.forEach(props.children, item => {
+    if (item.type !== DockItem) throw new Error("Invalid child type.");
   });
 
   return (
     <div style={{
       display: "grid",
-      gridTemplateColumns: props.appWidths.map(() => "auto").join(" "),
+      gridTemplateColumns: props.itemWidths.map(() => "auto").join(" "),
       alignItems: "end",
       position: "relative",
     }}>
-      {React.Children.map(props.children, (app, index) => (
-        React.cloneElement(app, { width: props.appWidths[index], })
+      {React.Children.map(props.children, (item, index) => (
+        React.cloneElement(item, { width: props.itemWidths[index], })
       ))}
       <DockBackground className={props.backgroundClassName} height={props.height} />
     </div>
