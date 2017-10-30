@@ -23,11 +23,11 @@ export default class extends React.Component {
         display: "grid",
         gridTemplateColumns: "auto auto auto",
       }}>
-        <DockOffset width={offsetLeft} debug={this.props.debug} />
+        <DockOffset width={offsetLeft} height={this.unmagnifiedDockAppWidth} debug={this.props.debug} />
         <Dock appWidths={appWidths} height={this.unmagnifiedDockAppWidth} padding={this.padding}>
           {this.props.children}
         </Dock>
-        <DockOffset width={offsetRight} debug={this.props.debug} />
+        <DockOffset width={offsetRight} height={this.unmagnifiedDockAppWidth} debug={this.props.debug} />
       </div>
     );
   }

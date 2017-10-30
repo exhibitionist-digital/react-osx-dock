@@ -4,7 +4,8 @@ export default function(props) {
   return (
     <div style={{
       width: `${props.width}px`,
-      height: "100%",
+      height: `${props.height}px`,
+      alignSelf: "end",
       background: "red",
       opacity: props.debug ? 0.5 : 0,
     }} />

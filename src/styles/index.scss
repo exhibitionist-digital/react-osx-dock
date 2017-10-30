@@ -4,21 +4,70 @@ html, body, #react, .app {
   margin: 0;
   padding: 0;
   border: 0;
-  background: url("../images/background.jpg"), #777;
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
 }
 
 .app {
   display: flex;
-  align-items: flex-end;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
+  &.osx {
+    background-image: url("../images/osx/background.jpg");
+    background-color: #555;
+    background-position: center;
+    background-size: cover;
+  }
+
+  &.social {
+    background-image: url("../images/social/background.png");
+    background-color: #999;
+    background-repeat: repeat;
+  }
+
+  &.pokemon {
+    background-image: url("../images/pokemon/background.png");
+    background-color: #ffdd55;
+    background-position: center;
+    background-repeat: repeat;
+  }
 }
 
 .dock {
   img {
     cursor: pointer;
+  }
+}
+
+.dock-type-selector {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto;
+  grid-column-gap: 5px;
+  align-items: baseline;
+  padding: 10px;
+  background: #111522;
+  color: #ecedee;
+  font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  box-shadow: 1px 1px 50px 4px rgba(0, 0, 0, 0.6);
+
+  .header {
+    font-weight: bold;
+  }
+
+  .divider {
+    &::before {
+      content: "|";
+    }
+  }
+
+  a {
+    color: inherit;
+
+    &.selected {
+      text-decoration: none;
+      pointer-events: none;
+      cursor: inherit;
+    }
   }
 }
 
@@ -29,6 +78,10 @@ html, body, #react, .app {
 }
 
 @media screen and (min-width: 48em) {
+  .dock-type-selector {
+    align-self: flex-start;
+  }
+
   .fork {
     img {
       display: inherit;
