@@ -15,6 +15,7 @@ export default class extends React.Component {
         backgroundClassName="dock-background"
         width={Math.min(800, window.innerWidth * 0.6)}
         magnification={0.8}
+        magnifyDirection="up"
         debug={false}
       >
         {this.apps.map((app, index) => (

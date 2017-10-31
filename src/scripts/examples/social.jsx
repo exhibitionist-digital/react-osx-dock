@@ -8,7 +8,7 @@ export default class extends React.Component {
         className="dock"
         width={Math.min(700, window.innerWidth * 0.5)}
         magnification={0.7}
-        magnifyDirection={"down"}
+        magnifyDirection="down"
         debug={false}
       >
         {this.platforms.map((platform, index) => (

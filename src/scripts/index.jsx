@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import OsxExample from "./examples/osx";
 import SocialExample from "./examples/social";
 import PokemonExample from "./examples/pokemon";
+import DebugExample from "./examples/debug";
 
 class App extends React.Component {
   constructor(props) {
@@ -21,12 +22,14 @@ class App extends React.Component {
           <a href="#" className={example === "osx" ? "selected" : null} onClick={() => this.setState({ example: "osx" })}>OS X</a>
           <a href="#" className={example === "social" ? "selected" : null} onClick={() => this.setState({ example: "social" })}>Social</a>
           <a href="#" className={example === "pokemon" ? "selected" : null} onClick={() => this.setState({ example: "pokemon" })}>Pokémon</a>
+          <a href="#" className={example === "debug" ? "selected" : null} onClick={() => this.setState({ example: "debug" })}>Debug</a>
         </div>
 
         {do {
           if (example === "osx") <OsxExample />;
           else if (example === "social") <SocialExample />;
           else if (example === "pokemon") <PokemonExample />;
+          else if (example === "debug") <DebugExample />;
         }}
       </div>
     );
