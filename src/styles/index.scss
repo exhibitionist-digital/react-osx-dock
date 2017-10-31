@@ -21,8 +21,6 @@ html, body, #react, .app {
   position: absolute;
   top: 0;
   left: 0;
-  display: grid;
-  grid-row-gap: 6px;
   padding: 12px;
   background: #111522;
   color: #ecedee;
@@ -33,13 +31,22 @@ html, body, #react, .app {
     font-weight: bold;
   }
 
-  a {
-    color: inherit;
+  ul {
+    margin: 0px;
+    padding-left: 20px;
 
-    &.selected {
-      text-decoration: none;
-      pointer-events: none;
-      cursor: inherit;
+    li {
+      padding-top: 6px;
+
+      a {
+        color: inherit;
+
+        &.selected {
+          text-decoration: none;
+          pointer-events: none;
+          cursor: inherit;
+        }
+      }
     }
   }
 }

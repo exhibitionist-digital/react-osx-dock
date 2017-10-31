@@ -1,5 +1,5 @@
 import React from "react";
-import Dock from "../dock";
+import Dock from "./dock";
 
 export default class extends React.Component {
   render() {

@@ -1,9 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import OsxExample from "./examples/osx";
-import SocialExample from "./examples/social";
-import PokemonExample from "./examples/pokemon";
-import DebugExample from "./examples/debug";
+import OsxExample from "./osx-example";
+import SocialExample from "./social-example";
+import PokemonExample from "./pokemon-example";
+import DebugExample from "./debug-example";
 
 class App extends React.Component {
   constructor(props) {
@@ -18,11 +18,13 @@ class App extends React.Component {
     return (
       <div className={`app ${example}-example`}>
         <div className="example-selector">
-          <span className="header">Example:</span>
-          <a href="#" className={example === "osx" ? "selected" : null} onClick={() => this.setState({ example: "osx" })}>OS X</a>
-          <a href="#" className={example === "social" ? "selected" : null} onClick={() => this.setState({ example: "social" })}>Social</a>
-          <a href="#" className={example === "pokemon" ? "selected" : null} onClick={() => this.setState({ example: "pokemon" })}>Pokémon</a>
-          <a href="#" className={example === "debug" ? "selected" : null} onClick={() => this.setState({ example: "debug" })}>Debug</a>
+          <div className="header">Example:</div>
+          <ul>
+            <li><a href="#" className={example === "osx" ? "selected" : null} onClick={() => this.setState({ example: "osx" })}>OS X</a></li>
+            <li><a href="#" className={example === "social" ? "selected" : null} onClick={() => this.setState({ example: "social" })}>Social</a></li>
+            <li><a href="#" className={example === "pokemon" ? "selected" : null} onClick={() => this.setState({ example: "pokemon" })}>Pokémon</a></li>
+            <li><a href="#" className={example === "debug" ? "selected" : null} onClick={() => this.setState({ example: "debug" })}>Debug</a></li>
+          </ul>
         </div>
 
         {do {
