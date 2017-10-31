@@ -4,8 +4,9 @@
   background-repeat: repeat;
 
   .dock {
+    align-self: flex-start;
+
     .dock-item {
-      cursor: pointer;
       padding: 24px 0px 16px 0px;
 
       a {

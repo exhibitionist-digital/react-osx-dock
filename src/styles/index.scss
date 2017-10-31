@@ -12,30 +12,24 @@ html, body, #react, .app {
 
 .app {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .example-selector {
+  position: absolute;
+  top: 0;
+  left: 0;
   display: grid;
-  grid-template-columns: auto auto auto auto auto auto;
-  grid-column-gap: 5px;
-  align-items: baseline;
-  padding: 10px;
+  grid-row-gap: 6px;
+  padding: 12px;
   background: #111522;
   color: #ecedee;
   box-shadow: 1px 1px 50px 4px rgba(0, 0, 0, 0.6);
+  z-index: 1;
 
   .header {
     font-weight: bold;
-  }
-
-  .divider {
-    &::before {
-      content: "|";
-    }
   }
 
   a {
@@ -49,6 +43,14 @@ html, body, #react, .app {
   }
 }
 
+.dock {
+  z-index: 0;
+
+  .dock-item {
+    cursor: pointer;
+  }
+}
+
 .fork {
   img {
     display: none;
@@ -56,10 +58,6 @@ html, body, #react, .app {
 }
 
 @media screen and (min-width: 48em) {
-  .example-selector {
-    align-self: flex-start;
-  }
-
   .fork {
     img {
       display: inherit;

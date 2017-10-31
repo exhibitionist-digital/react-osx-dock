@@ -9,6 +9,7 @@ export default class extends React.Component {
         backgroundClassName="dock-background"
         width={Math.min(700, window.innerWidth * 0.5)}
         magnification={1}
+        magnifyDirection={"center"}
         debug={false}
       >
         {this.pokemon.map((pokemon, index) => (

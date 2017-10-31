@@ -17,11 +17,9 @@ class App extends React.Component {
     return (
       <div className={`app ${example}-example`}>
         <div className="example-selector">
-          <span className="header">Style:</span>
+          <span className="header">Example:</span>
           <a href="#" className={example === "osx" ? "selected" : null} onClick={() => this.setState({ example: "osx" })}>OS X</a>
-          <span className="divider" />
           <a href="#" className={example === "social" ? "selected" : null} onClick={() => this.setState({ example: "social" })}>Social</a>
-          <span className="divider" />
           <a href="#" className={example === "pokemon" ? "selected" : null} onClick={() => this.setState({ example: "pokemon" })}>Pokémon</a>
         </div>
 

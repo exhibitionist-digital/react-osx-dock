@@ -23,16 +23,27 @@ export default class extends React.Component {
         display: "grid",
         gridTemplateColumns: "auto auto auto",
       }}>
-        <DockOffset width={offsetLeft} height={this.unmagnifiedDockItemWidth} debug={this.props.debug} />
+        <DockOffset
+          width={offsetLeft}
+          height={this.unmagnifiedDockItemWidth}
+          magnifyDirection={this.magnifyDirection}
+          debug={this.props.debug}
+        />
         <Dock
           backgroundClassName={this.props.backgroundClassName}
           itemWidths={itemWidths}
           height={this.unmagnifiedDockItemWidth}
+          magnifyDirection={this.magnifyDirection}
           debug={this.props.debug}
         >
           {this.props.children}
         </Dock>
-        <DockOffset width={offsetRight} height={this.unmagnifiedDockItemWidth} debug={this.props.debug} />
+        <DockOffset
+          width={offsetRight}
+          height={this.unmagnifiedDockItemWidth}
+          magnifyDirection={this.magnifyDirection}
+          debug={this.props.debug}
+        />
       </div>
     );
   }
@@ -122,5 +133,9 @@ export default class extends React.Component {
 
   get magnification() {
     return Math.max(this.props.magnification, 0);
+  }
+
+  get magnifyDirection() {
+    return this.props.magnifyDirection || "up";
   }
 }

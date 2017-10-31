@@ -1,12 +1,20 @@
 .pokemon-example {
   background-image: url("../images/pokemon/background.png");
-  background-color: #ffdd00;
-  background-position: center;
+  background-color: #fff;
   background-repeat: repeat;
+  animation: scroll 5s linear infinite;
+
+  @keyframes scroll {
+    $image-height: 128px;
+    from { background-position-y: 0; }
+    to { background-position-y: -$image-height; }
+  }
 
   .dock {
+    align-self: center;
+
     .dock-item {
-      padding: 12px 0px 8px 0px;
+      padding: 12px 0px;
 
       img {
         height: 100%;
@@ -14,11 +22,10 @@
     }
 
     .dock-background {
-      background-color: #ffdd00;
-      border: solid #eb0000;
-      border-width: 3px 3px 0px 3px;
-      border-radius: 10px 10px 0px 0px;
-      box-shadow: 1px 1px 50px 0px rgba(0, 0, 0, 0.1);
+      background-color: #fff;
+      border: 4px solid #eb0000;
+      border-radius: 10px;
+      box-shadow: 0px 0px 50px 1px rgba(0, 0, 0, 0.6);
     }
   }
 }
