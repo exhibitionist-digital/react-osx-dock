@@ -1,5 +1,5 @@
 import React from "react";
-import Dock from "./dock";
+import Dock from "react-osx-dock";
 
 export default function(props) {
   return (
