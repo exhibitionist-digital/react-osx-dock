@@ -3,7 +3,8 @@ import gutil from "gulp-util";
 import filter from "gulp-filter";
 import inject from "gulp-inject";
 import livereload from "gulp-livereload";
-import uglify from "gulp-uglify";
+import uglify from "gulp-uglify/composer";
+import uglifyES from "uglify-es";
 import cleanCSS from "gulp-clean-css";
 import sass from "gulp-sass";
 import autoprefixer from "gulp-autoprefixer";
@@ -34,11 +35,11 @@ let config = {
   ],
   environments: [{
     name: "development",
-    minify: false
+    minify: false,
   }, {
     name: "production",
-    minify: true
-  }]
+    minify: true,
+  }],
 };
 
 let server = http.createServer(express().use(express.static(config.buildDir)));
@@ -81,7 +82,7 @@ gulp.task("build-scripts", () => {
     })
     .pipe(source(`${env.name}.js`)) // Convert from Browserify stream to vinyl stream.
     .pipe(buffer()) // Convert from streaming mode to buffered mode.
-    .pipe(gulpif(env.minify, uglify({ mangle: false })))
+    .pipe(gulpif(env.minify, uglify(uglifyES, gutil.log)({ mangle: false })))
     .pipe(rev())
     .pipe(gulp.dest(`${config.buildDir}/scripts`));
 });
@@ -95,7 +96,7 @@ gulp.task("build-styles", () => {
       this.emit("end");
     }))
     .pipe(rename(`${env.name}.css`))
-    .pipe(autoprefixer({ browsers: ["> 1%"] }))
+    .pipe(autoprefixer())
     .pipe(gulpif(env.minify, cleanCSS()))
     .pipe(rev())
     .pipe(gulp.dest(`${config.buildDir}/styles`));
